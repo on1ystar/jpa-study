@@ -29,7 +29,7 @@ public class Order extends BaseEntity {
     private Member member;
 
     @OneToOne(fetch = LAZY)
-    @JoinColumn(name = "delivery_id")
+    @JoinColumn(name = "delivery_id", unique = true)
     private Delivery delivery;
 
     @Enumerated(value = STRING)
