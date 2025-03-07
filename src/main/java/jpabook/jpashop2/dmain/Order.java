@@ -10,7 +10,7 @@ import static jakarta.persistence.FetchType.*;
 
 @Entity(name = "Orders")
 @Getter
-public class Order {
+public class Order extends BaseEntity {
 
     @Id @GeneratedValue
     @Column(name = "order_id")
@@ -24,7 +24,7 @@ public class Order {
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
-    private LocalDateTime orderDate;
+//    private LocalDateTime orderDate;
 
     @Enumerated(value = STRING)
     private OrderStatus orderStatus;

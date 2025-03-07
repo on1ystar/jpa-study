@@ -7,9 +7,10 @@ import static jakarta.persistence.EnumType.*;
 
 @Entity
 @Getter
-public class Delivery {
+public class Delivery extends BaseEntity {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "delivery_id")
     private Long id;
 

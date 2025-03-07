@@ -20,7 +20,6 @@ class MemberRepositoryTest {
     MemberRepository memberRepository;
 
     @Test
-    @Rollback(value = false)
     void saveMemberTest() {
         //given
         Member member1 = new Member("member1");
@@ -32,6 +31,7 @@ class MemberRepositoryTest {
         Member findMember = em.find(Member.class, member1.getId());
         assertThat(findMember.getId()).isEqualTo(member1.getId());
         assertThat(findMember.getName()).isEqualTo(member1.getName());
-
+        System.out.println("create date : " + findMember.getCreatedDate());
+        System.out.println(findMember.getLastModifiedDate());
     }
 }
