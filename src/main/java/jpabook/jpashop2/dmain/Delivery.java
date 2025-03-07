@@ -1,13 +1,21 @@
 package jpabook.jpashop2.dmain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.EnumType.*;
 
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Delivery extends BaseEntity {
+
+    public Delivery(Address address, DeliveryStatus deliveryStatus) {
+        this.address = address;
+        this.deliveryStatus = deliveryStatus;
+    }
 
     @Id
     @GeneratedValue
@@ -22,4 +30,9 @@ public class Delivery extends BaseEntity {
 
     @Enumerated(value = STRING)
     private DeliveryStatus deliveryStatus;
+
+    // ===연관관계 편의 메서드===
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 }
