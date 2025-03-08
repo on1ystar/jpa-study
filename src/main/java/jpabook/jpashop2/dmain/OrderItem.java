@@ -14,10 +14,11 @@ import static jakarta.persistence.FetchType.*;
 public class OrderItem extends BaseEntity {
 
     public OrderItem(Order order, Item item, int orderPrice, int count) {
-        this.order = order;
         this.item = item;
         this.orderPrice = orderPrice;
         this.count = count;
+
+        setOrder(order);
     }
 
     @Id
@@ -36,4 +37,10 @@ public class OrderItem extends BaseEntity {
     private int orderPrice;
 
     private int count;
+
+    //===연관관계 편의 메서드===
+    private void setOrder(Order order) {
+        this.order = order;
+        order.getOrderItems().add(this);
+    }
 }

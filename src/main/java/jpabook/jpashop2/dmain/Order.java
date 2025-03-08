@@ -5,6 +5,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static jakarta.persistence.EnumType.*;
 import static jakarta.persistence.FetchType.*;
 
@@ -28,6 +31,9 @@ public class Order extends BaseEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems = new ArrayList<>();
+
     @OneToOne(fetch = LAZY)
     @JoinColumn(name = "delivery_id", unique = true)
     private Delivery delivery;
@@ -45,6 +51,5 @@ public class Order extends BaseEntity {
         this.delivery = delivery;
         delivery.setOrder(this);
     }
-
 
 }
