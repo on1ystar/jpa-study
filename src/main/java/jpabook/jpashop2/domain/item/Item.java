@@ -54,15 +54,18 @@ public abstract class Item extends BaseEntity {
 
     /**
      * 상품 수정
-     * @param name
-     * @param price
      */
-    private void update(String name, int price) {
+    public void update(String name, int price, int stockQuantity) {
         if (0 > price || 1_000_000 < price) {
-            throw new IllegalArgumentException("상품 가격은 0 이상 1,000,000 이하여야 합니다.");
+            throw new IllegalStateException("상품 가격은 0 이상 1,000,000 이하여야 합니다.");
+        }
+
+        if (stockQuantity < 0) {
+            throw new IllegalArgumentException("재고 수량은 0보다 작을 수 없습니다.");
         }
 
         this.price = price;
         this.name = name;
+        this.stockQuantity = stockQuantity;
     }
 }

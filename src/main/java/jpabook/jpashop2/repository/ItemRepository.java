@@ -8,6 +8,8 @@ import jpabook.jpashop2.domain.item.Movie;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class ItemRepository {
@@ -16,6 +18,11 @@ public class ItemRepository {
 
     public void save(Item item) {
         em.persist(item);
+    }
+
+    public List<Item> findAll() {
+        return em.createQuery("select i from Item i", Item.class)
+                .getResultList();
     }
 
     public Item findById(Long id) {
