@@ -1,6 +1,7 @@
 package jpabook.jpashop2.repository;
 
 import jakarta.persistence.EntityManager;
+import jpabook.jpashop2.domain.Member;
 import jpabook.jpashop2.domain.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -18,17 +19,18 @@ public class OrderRepository {
     }
 
     public Order findById(Long id) {
-        Order order = em.find(Order.class, id);
-
-        if (order == null) {
-            throw new IllegalStateException("id에 해당하는 회원이 없습니다.");
-        }
-
-        return order;
+        return em.find(Order.class, id);
     }
 
     public List<Order> findAll() {
         return em.createQuery("select o from Orders o", Order.class)
+                .getResultList();
+    }
+
+    public List<Order> findByMember(Member member) {
+        return em.createQuery("select o from Orders o " +
+                        "where o.member = :member", Order.class)
+                .setParameter("member", member)
                 .getResultList();
     }
 }
