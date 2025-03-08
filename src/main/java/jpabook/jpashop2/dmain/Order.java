@@ -1,6 +1,7 @@
 package jpabook.jpashop2.dmain;
 
 import jakarta.persistence.*;
+import jpabook.jpashop2.dmain.item.Item;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,7 +42,7 @@ public class Order extends BaseEntity {
     @Enumerated(value = STRING)
     private OrderStatus orderStatus;
 
-    // ===연관관계 편의 메서드===
+    //===연관관계 편의 메서드===
     private void setMember(Member member) {
         this.member = member;
         member.getOrders().add(this);
@@ -52,4 +53,17 @@ public class Order extends BaseEntity {
         delivery.setOrder(this);
     }
 
+    //===비즈니스 메서드===
+
+    /**
+     * 주문 취소 시 각 아이템의 재고 증가
+     */
+    public void cancel() {
+        this.orderStatus = OrderStatus.CANCEL;
+
+        for (OrderItem orderItem : orderItems) {
+            Item item = orderItem.getItem();
+            item.addStock(orderItem.getCount());
+        }
+    }
 }

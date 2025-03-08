@@ -43,4 +43,14 @@ public class OrderItem extends BaseEntity {
         this.order = order;
         order.getOrderItems().add(this);
     }
+
+    //===비즈니스 메서드===
+
+    /**
+     * 총 주문 금액
+     * @return orderPrice * count
+     */
+    public int getTotalPrice() {
+        return this.orderPrice * this.count;
+    }
 }
