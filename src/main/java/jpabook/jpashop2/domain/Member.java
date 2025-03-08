@@ -13,6 +13,10 @@ import java.util.List;
 @Getter
 public class Member extends BaseEntity {
 
+    public Member(String name) {
+        this.name = name;
+    }
+
     public Member(String name, Address address) {
         this.name = name;
         this.address = address;
