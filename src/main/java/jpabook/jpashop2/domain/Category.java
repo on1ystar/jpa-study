@@ -1,4 +1,4 @@
-package jpabook.jpashop2.dmain;
+package jpabook.jpashop2.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -13,6 +13,10 @@ import static jakarta.persistence.FetchType.LAZY;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Category extends BaseEntity {
+
+    public Category(String name) {
+        this.name = name;
+    }
 
     public Category(String name, Category parent) {
         this.name = name;

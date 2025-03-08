@@ -1,7 +1,7 @@
-package jpabook.jpashop2.dmain.item;
+package jpabook.jpashop2.domain.item;
 
 import jakarta.persistence.*;
-import jpabook.jpashop2.dmain.BaseEntity;
+import jpabook.jpashop2.domain.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +24,7 @@ public abstract class Item extends BaseEntity {
     @Column(name = "item_id")
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String name;
 
     private int price;

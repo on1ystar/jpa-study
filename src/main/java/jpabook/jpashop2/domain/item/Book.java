@@ -1,4 +1,4 @@
-package jpabook.jpashop2.dmain.item;
+package jpabook.jpashop2.domain.item;
 
 import jakarta.persistence.Entity;
 import lombok.AccessLevel;

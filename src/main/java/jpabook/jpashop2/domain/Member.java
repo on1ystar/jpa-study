@@ -1,8 +1,7 @@
-package jpabook.jpashop2.dmain;
+package jpabook.jpashop2.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
