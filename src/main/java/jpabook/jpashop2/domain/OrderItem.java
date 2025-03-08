@@ -13,12 +13,10 @@ import static jakarta.persistence.FetchType.*;
 @Getter
 public class OrderItem extends BaseEntity {
 
-    public OrderItem(Order order, Item item, int orderPrice, int count) {
+    private OrderItem(Item item, int orderPrice, int count) {
         this.item = item;
         this.orderPrice = orderPrice;
         this.count = count;
-
-        setOrder(order);
     }
 
     @Id
@@ -39,12 +37,25 @@ public class OrderItem extends BaseEntity {
     private int count;
 
     //===연관관계 편의 메서드===
-    private void setOrder(Order order) {
+    public void setOrder(Order order) {
         this.order = order;
-        order.getOrderItems().add(this);
+    }
+
+    //===생성 메서드===
+    public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
+        OrderItem orderItem = new OrderItem(item, orderPrice, count);
+        item.removeStock(count);
+        return orderItem;
     }
 
     //===비즈니스 메서드===
+
+    /**
+     * 주문 취소 시 상품 재고 수량 증가
+     */
+    public void cancel() {
+        this.item.addStock(this.count);
+    }
 
     /**
      * 총 주문 금액

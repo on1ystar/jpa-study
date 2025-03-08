@@ -17,7 +17,7 @@ import static jakarta.persistence.FetchType.*;
 @Getter
 public class Order extends BaseEntity {
 
-    public Order(Member member, Delivery delivery, OrderStatus orderStatus) {
+    private Order(Member member, Delivery delivery, OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
 
         setMember(member);
@@ -53,17 +53,30 @@ public class Order extends BaseEntity {
         delivery.setOrder(this);
     }
 
+    private void addOrderItem(OrderItem orderItem) {
+        this.getOrderItems().add(orderItem);
+        orderItem.setOrder(this);
+    }
+
+    //===생성 메서드===
+    public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
+        Order order = new Order(member, delivery, OrderStatus.ORDER);
+        for (OrderItem orderItem : orderItems) {
+            order.addOrderItem(orderItem);
+        }
+
+        return order;
+    }
+
     //===비즈니스 메서드===
 
-    /**
-     * 주문 취소 시 각 아이템의 재고 증가
-     */
     public void cancel() {
+        if (this.orderStatus == OrderStatus.CANCEL) {
+            throw new IllegalStateException("이미 취소된 주문입니다.");
+        }
         this.orderStatus = OrderStatus.CANCEL;
-
         for (OrderItem orderItem : orderItems) {
-            Item item = orderItem.getItem();
-            item.addStock(orderItem.getCount());
+            orderItem.cancel();
         }
     }
 
