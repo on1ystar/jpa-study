@@ -50,7 +50,7 @@ public class OrderItem extends BaseEntity {
      * 총 주문 금액
      * @return orderPrice * count
      */
-    public int getTotalPrice() {
+    public int getTotalOrderPrice() {
         return this.orderPrice * this.count;
     }
 }

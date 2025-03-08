@@ -66,4 +66,17 @@ public class Order extends BaseEntity {
             item.addStock(orderItem.getCount());
         }
     }
+
+    /**
+     * 주문 총 가격
+     * @return
+     */
+    public int getTotalPrice() {
+        int totalPrice = 0;
+        for (OrderItem orderItem : orderItems) {
+            totalPrice += orderItem.getTotalOrderPrice();
+        }
+
+        return totalPrice;
+    }
 }
