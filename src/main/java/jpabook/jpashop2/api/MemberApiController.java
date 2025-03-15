@@ -68,7 +68,7 @@ public class MemberApiController {
     @Getter @Setter
     static class SaveMemberResponse {
 
-        @NotBlank
+        @NotNull
         private Long id;
     }
 

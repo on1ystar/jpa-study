@@ -12,7 +12,8 @@ import java.util.List;
 import static jakarta.persistence.EnumType.*;
 import static jakarta.persistence.FetchType.*;
 
-@Entity(name = "Orders")
+@Entity
+@Table(name = "Orders")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Order extends BaseEntity {
@@ -35,7 +36,7 @@ public class Order extends BaseEntity {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne(fetch = LAZY)
+    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "delivery_id", unique = true)
     private Delivery delivery;
 

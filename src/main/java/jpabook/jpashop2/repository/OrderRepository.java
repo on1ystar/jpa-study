@@ -23,14 +23,16 @@ public class OrderRepository {
     }
 
     public List<Order> findAll() {
-        return em.createQuery("select o from Orders o", Order.class)
+        return em.createQuery("select o from Order o", Order.class)
                 .getResultList();
     }
 
-    public List<Order> findByMember(Member member) {
-        return em.createQuery("select o from Orders o " +
-                        "where o.member = :member", Order.class)
-                .setParameter("member", member)
+    public List<Order> findOrdersWithMemberAndDeliveryByMemberId(Long memberId) {
+        return em.createQuery("select o from Order o" +
+                        " join fetch o.member m" +
+                        " join fetch o.delivery d" +
+                        " where o.member.id = :memberId", Order.class)
+                .setParameter("memberId", memberId)
                 .getResultList();
     }
 }
