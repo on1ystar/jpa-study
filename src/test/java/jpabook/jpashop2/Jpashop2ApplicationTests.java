@@ -9,5 +9,4 @@ class Jpashop2ApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }

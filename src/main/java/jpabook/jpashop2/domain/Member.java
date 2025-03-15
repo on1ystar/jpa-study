@@ -33,4 +33,13 @@ public class Member extends BaseEntity {
 
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
+
+    //===비즈니스 메서드===
+
+    /**
+     * 회원 이름 수정
+     */
+    public void updateName(String name) {
+        this.name = name;
+    }
 }

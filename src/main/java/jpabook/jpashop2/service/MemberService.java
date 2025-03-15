@@ -46,6 +46,17 @@ public class MemberService {
         return memberRepository.findById(id);
     }
 
+    /**
+     * 회원 이름 수정
+     * @param id
+     * @param name
+     */
+    @Transactional
+    public void updateName(Long id, String name) {
+        Member findMember = memberRepository.findById(id);
+        findMember.updateName(name);
+    }
+
     private void validateDuplicateMember(Member member) {
         Optional<Member> optionalMember = memberRepository.findByName(member.getName());
         if (optionalMember.isPresent()) {
