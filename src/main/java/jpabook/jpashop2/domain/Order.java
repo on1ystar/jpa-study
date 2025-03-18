@@ -12,7 +12,8 @@ import java.util.List;
 import static jakarta.persistence.EnumType.*;
 import static jakarta.persistence.FetchType.*;
 
-@Entity(name = "Orders")
+@Entity
+@Table(name = "Orders")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Order extends BaseEntity {
