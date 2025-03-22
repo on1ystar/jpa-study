@@ -29,8 +29,8 @@ public class OrderRepository {
 
     public List<Order> findOrdersWithMemberAndDeliveryByMemberId(Long memberId) {
         return em.createQuery("select o from Order o" +
-                        " join fetch o.member m" +
-                        " join fetch o.delivery d" +
+                        " join fetch o.member" +
+                        " join fetch o.delivery" +
                         " where o.member.id = :memberId", Order.class)
                 .setParameter("memberId", memberId)
                 .getResultList();
