@@ -2,7 +2,6 @@ package jpabook.jpashop2.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jpabook.jpashop2.domain.item.Item;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -48,22 +47,5 @@ public class OrderItem {
         OrderItem orderItem = new OrderItem(item, orderPrice, count);
         item.removeStock(count);
         return orderItem;
-    }
-
-    //===비즈니스 메서드===
-
-    /**
-     * 주문 취소 시 상품 재고 수량 증가
-     */
-    public void cancel() {
-        this.item.addStock(this.count);
-    }
-
-    /**
-     * 총 주문 금액
-     * @return orderPrice * count
-     */
-    public int getTotalOrderPrice() {
-        return this.orderPrice * this.count;
     }
 }

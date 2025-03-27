@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.BatchSize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,6 @@ import java.util.List;
 public class Order {
 
     private Order(Member member) {
-
         setMember(member);
     }
 
@@ -49,13 +47,5 @@ public class Order {
         }
 
         return order;
-    }
-
-    //===비즈니스 메서드===
-
-    public void cancel() {
-        for (OrderItem orderItem : orderItems) {
-            orderItem.cancel();
-        }
     }
 }

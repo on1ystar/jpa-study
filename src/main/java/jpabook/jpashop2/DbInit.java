@@ -3,7 +3,7 @@ package jpabook.jpashop2;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import jpabook.jpashop2.domain.*;
-import jpabook.jpashop2.domain.item.Item;
+import jpabook.jpashop2.domain.Item;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +28,7 @@ public class DbInit {
         private final EntityManager em;
 
         public void dbInit1() {
-            Member member = createMember("회원1", "도시1", "거리1", "11111");
+            Member member = createMember("회원1");
             em.persist(member);
 
             Item book1 = createItem("책1", 10000, 10);
@@ -38,8 +38,6 @@ public class DbInit {
 
             OrderItem orderItem1 = OrderItem.createOrderItem(book1, book1.getPrice(), 1);
             OrderItem orderItem2 = OrderItem.createOrderItem(book2, book2.getPrice(), 1);
-
-//            Delivery delivery = createDelivery(member.getAddress(), DeliveryStatus.READY);
 
             Order order = Order.createOrder(member, orderItem1, orderItem2);
             em.persist(order);
@@ -60,16 +58,13 @@ public class DbInit {
             em.persist(order);
         }
 
-        private Member createMember(String name, String city, String street, String zipcode) {
-            return new Member(name, new Address(city, street, zipcode));
+        private Member createMember(String name) {
+            return new Member(name);
         }
 
         private Item createItem(String name, int price, int stockQuantity) {
             return new Item(name, price, stockQuantity);
         }
 
-//        private Delivery createDelivery(Address address, DeliveryStatus deliveryStatus) {
-//            return new Delivery(address, deliveryStatus);
-//        }
     }
 }

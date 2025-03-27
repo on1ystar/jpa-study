@@ -51,12 +51,4 @@ public class OrderRepository {
                 .setMaxResults(limit) // limit
                 .getResultList();
     }
-
-    public List<Order> findOrdersWithMemberAndDeliveryByMemberId(Long memberId) {
-        return em.createQuery("select o from Order o" +
-                        " join fetch o.member" +
-                        " where o.member.id = :memberId", Order.class)
-                .setParameter("memberId", memberId)
-                .getResultList();
-    }
 }

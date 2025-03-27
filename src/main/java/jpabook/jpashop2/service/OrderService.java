@@ -1,7 +1,7 @@
 package jpabook.jpashop2.service;
 
 import jpabook.jpashop2.domain.*;
-import jpabook.jpashop2.domain.item.Item;
+import jpabook.jpashop2.domain.Item;
 import jpabook.jpashop2.dto.OrderItemDto;
 import jpabook.jpashop2.repository.ItemRepository;
 import jpabook.jpashop2.repository.MemberRepository;
@@ -41,21 +41,4 @@ public class OrderService {
 
         return order.getId();
     }
-
-    /**
-     * 주문 취소
-     */
-    @Transactional
-    public void cancelOrder(Long orderId) {
-        Order findOrder = orderRepository.findById(orderId);
-        findOrder.cancel();
-    }
-
-    /**
-     * 주문 조회
-     */
-    public List<Order> findOrders(Long memberId) {
-        return orderRepository.findOrdersWithMemberAndDeliveryByMemberId(memberId);
-    }
-
 }
