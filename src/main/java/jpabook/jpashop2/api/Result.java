@@ -9,12 +9,5 @@ public class Result<T> {
         this.data = data;
     }
 
-    public Result(String statusCode, String errorMessage) {
-        this.statusCode = statusCode;
-        this.errorMessage = errorMessage;
-    }
-
     private T data;
-    private String statusCode;
-    private String errorMessage;
 }

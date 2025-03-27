@@ -27,10 +27,34 @@ public class OrderRepository {
                 .getResultList();
     }
 
+    public List<Order> findAll(int offset, int limit) {
+        return em.createQuery("select o from Order o", Order.class)
+                .setFirstResult(offset)
+                .setFirstResult(limit)
+                .getResultList();
+    }
+
+    public List<Order> findAllWithItem() {
+        return em.createQuery("select o from Order o" +
+                        " join fetch o.member m" +
+                        " join fetch o.orderItems oi" +
+                        " join fetch oi.item i", Order.class)
+                .setFirstResult(0) // offset
+                .setMaxResults(1) // limit
+                .getResultList();
+    }
+
+    public List<Order> findAllWithItem(int offset, int limit) {
+        return em.createQuery("select o from Order o" +
+                        " join fetch o.member m", Order.class)
+                .setFirstResult(offset) // offset
+                .setMaxResults(limit) // limit
+                .getResultList();
+    }
+
     public List<Order> findOrdersWithMemberAndDeliveryByMemberId(Long memberId) {
         return em.createQuery("select o from Order o" +
                         " join fetch o.member" +
-                        " join fetch o.delivery" +
                         " where o.member.id = :memberId", Order.class)
                 .setParameter("memberId", memberId)
                 .getResultList();

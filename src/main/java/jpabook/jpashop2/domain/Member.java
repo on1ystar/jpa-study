@@ -1,5 +1,6 @@
 package jpabook.jpashop2.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -11,7 +12,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class Member extends BaseEntity {
+public class Member {
 
     public Member(String name) {
         this.name = name;
@@ -19,7 +20,6 @@ public class Member extends BaseEntity {
 
     public Member(String name, Address address) {
         this.name = name;
-        this.address = address;
     }
 
     @Id @GeneratedValue
@@ -27,12 +27,6 @@ public class Member extends BaseEntity {
     private Long id;
 
     private String name;
-
-    @Embedded
-    private Address address;
-
-    @OneToMany(mappedBy = "member")
-    private List<Order> orders = new ArrayList<>();
 
     //===비즈니스 메서드===
 

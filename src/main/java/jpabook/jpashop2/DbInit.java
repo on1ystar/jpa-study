@@ -3,7 +3,6 @@ package jpabook.jpashop2;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import jpabook.jpashop2.domain.*;
-import jpabook.jpashop2.domain.item.Book;
 import jpabook.jpashop2.domain.item.Item;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -32,34 +31,32 @@ public class DbInit {
             Member member = createMember("회원1", "도시1", "거리1", "11111");
             em.persist(member);
 
-            Item book1 = createBook("책1", 10000, 10, "작가1", "기타1");
-            Item book2 = createBook("책2", 10000, 10, "작가2", "기타2");
+            Item book1 = createItem("책1", 10000, 10);
+            Item book2 = createItem("책2", 10000, 10);
             em.persist(book1);
             em.persist(book2);
 
             OrderItem orderItem1 = OrderItem.createOrderItem(book1, book1.getPrice(), 1);
             OrderItem orderItem2 = OrderItem.createOrderItem(book2, book2.getPrice(), 1);
 
-            Delivery delivery = createDelivery(member.getAddress(), DeliveryStatus.READY);
+//            Delivery delivery = createDelivery(member.getAddress(), DeliveryStatus.READY);
 
-            Order order = Order.createOrder(member, delivery, orderItem1, orderItem2);
+            Order order = Order.createOrder(member, orderItem1, orderItem2);
             em.persist(order);
         }
 
         public void dbInit2() {
             Member member = em.find(Member.class, 1L);
 
-            Item book3 = createBook("책3", 20000, 100, "작가3", "기타3");
-            Item book4 = createBook("책4", 20000, 100, "작가4", "기타4");
+            Item book3 = createItem("책3", 20000, 100);
+            Item book4 = createItem("책4", 20000, 100);
             em.persist(book3);
             em.persist(book4);
 
             OrderItem orderItem1 = OrderItem.createOrderItem(book3, book3.getPrice(), 1);
             OrderItem orderItem2 = OrderItem.createOrderItem(book4, book4.getPrice(), 1);
 
-            Delivery delivery = createDelivery(member.getAddress(), DeliveryStatus.READY);
-
-            Order order = Order.createOrder(member, delivery, orderItem1, orderItem2);
+            Order order = Order.createOrder(member, orderItem1, orderItem2);
             em.persist(order);
         }
 
@@ -67,12 +64,12 @@ public class DbInit {
             return new Member(name, new Address(city, street, zipcode));
         }
 
-        private Item createBook(String name, int price, int stockQuantity, String artist, String etc) {
-            return new Book(name, price, stockQuantity, artist, etc);
+        private Item createItem(String name, int price, int stockQuantity) {
+            return new Item(name, price, stockQuantity);
         }
 
-        private Delivery createDelivery(Address address, DeliveryStatus deliveryStatus) {
-            return new Delivery(address, deliveryStatus);
-        }
+//        private Delivery createDelivery(Address address, DeliveryStatus deliveryStatus) {
+//            return new Delivery(address, deliveryStatus);
+//        }
     }
 }

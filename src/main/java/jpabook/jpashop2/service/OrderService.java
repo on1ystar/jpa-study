@@ -28,8 +28,6 @@ public class OrderService {
     public Long order(Long memberId, List<OrderItemDto> dtoList) {
         Member findMember = memberRepository.findById(memberId);
 
-        Delivery delivery = new Delivery(findMember.getAddress(), DeliveryStatus.READY);
-
         OrderItem[] orderItems = new OrderItem[dtoList.size()];
         for (int i = 0; i < orderItems.length; i++) {
             OrderItemDto dto = dtoList.get(i);
@@ -37,7 +35,7 @@ public class OrderService {
             orderItems[i] = OrderItem.createOrderItem(findItem, dto.getOrderPrice(), dto.getCount());
         }
 
-        Order order = Order.createOrder(findMember, delivery, orderItems);
+        Order order = Order.createOrder(findMember, orderItems);
 
         orderRepository.save(order);
 
